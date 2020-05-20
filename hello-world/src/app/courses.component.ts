@@ -10,15 +10,28 @@ import { Component } from '@angular/core';
             <li *ngFor="let course of courses">
                 {{ course }}
             </li>
-        </ul>    
+        </ul>
+        <input [(ngModel)]="email" (keyup.enter)="onKeyUp()" />
+        <button class="btn btn-primary" [class.active]="isActive">Save</button>
+        <button (click)="onSave($event)" [style.backgroundColor]="isActive ? 'blue' : 'white'">Style Binding</button>
     `
 })
 
 export class CoursesComponent {
     title = "List Of Courses";
     courses;
+    isActive = true;
+    email="abc@123.com";
 
     constructor(service: CoursesService) {
         this.courses = service.getCourses();
+    }
+
+    onKeyUp() {
+        console.log(this.email);
+    }
+
+    onSave($event) {
+        console.log("Button was clicked", $event);
     }
 }
